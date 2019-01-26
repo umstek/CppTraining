@@ -60,10 +60,101 @@ void DynamicCastExample() {
 	bb->M();
 }
 
+class C
+{
+public:
+	C(int c) : c(c)
+	{
+	}
+
+	~C()
+	{
+	}
+
+	void Xxx() {
+		cout << "Xxx from C" << endl;
+	};
+
+	virtual void Conflict() {
+		cout << "Conflict from C" << endl;
+	};
+
+	virtual void ToOverride() {
+		cout << "ToOverride from C" << endl;
+	};
+
+private:
+	int c;
+};
+
+class D
+{
+public:
+	D(int d) : d(d)
+	{
+	}
+
+	~D()
+	{
+	}
+
+	void Xxx() {
+		cout << "Xxx from D" << endl;
+	};
+
+	virtual void Conflict() {
+		cout << "Conflict from D" << endl;
+	};
+
+	virtual void ToOverride() {
+		cout << "ToOverride from D" << endl;
+	};
+
+private:
+	int d;
+};
+
+class E : public C, public D
+{
+public:
+	E(int c, int d, int e) : C(c), D(d), e(e)
+	{
+	}
+
+	~E()
+	{
+	}
+
+	virtual void ToOverride() {
+		cout << "ToOverride from E" << endl;
+	}
+
+private:
+	int e;
+};
+
+
+void MultipleInheritanceExample() {
+	E *e = new E(3, 4, 5);
+	//e->Xxx();
+	e->C::Xxx();
+	//e->Conflict();
+	e->C::Conflict();
+	e->ToOverride();
+	e->C::ToOverride();
+
+	D *ed = new E(3, 4, 5);
+	ed->Xxx();
+	ed->Conflict();
+	dynamic_cast <C*>(ed)->Conflict();
+	dynamic_cast <E*>(ed)->C::Conflict();
+	ed->ToOverride();
+}
+
 int main()
 {
-
-	DynamicCastExample();
+	//DynamicCastExample();
+	MultipleInheritanceExample();
 
 	system("pause");
 	return 0;
