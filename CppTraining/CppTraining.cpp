@@ -229,11 +229,77 @@ void VirtualInheritanceExample() {
 	delete p;
 }
 
+class WoImpl1
+{
+public:
+	WoImpl1()
+	{
+	}
+
+	virtual ~WoImpl1()
+	{
+	}
+
+	//virtual void M();
+	virtual void M() = 0; // Doesn't run without explicitely making this pure virtual
+	virtual void X() = 0; // Has implementation below. 
+						  // This technique can be used to make a class abstract w/o any real abstract methods. 
+						  // Java did the write thing by introducing abstract classes. 
+	void N();
+
+private:
+
+};
+
+void WoImpl1::X() {
+	cout << "X\n";
+}
+
+class WImpl1 : public WoImpl1
+{
+public:
+	WImpl1()
+	{
+	}
+
+	virtual ~WImpl1()
+	{
+	}
+
+	virtual void M() {
+		cout << "M-w\n";
+	}
+
+	virtual void N() {
+		cout << "N-w\n";
+	};
+
+	virtual void X() { // Have to override anyway.
+		WoImpl1::X();  // But can use the default implementation inside. 
+	};
+
+private:
+
+};
+
+
+
+void VirtualThingsExample() {
+	//WoImpl1 *wo = new WoImpl1(); // Cannot instantiate abstract class 
+	WoImpl1 *w = new WImpl1();
+	w->M();
+	//w->N(); // Error
+	dynamic_cast <WImpl1*> (w)->N(); // Object is different, so fine. 
+									 // Avoid dynamic_cast, though. 
+	w->X();
+}
+
 int main()
 {
 	//DynamicCastExample();
 	//MultipleInheritanceExample();
-	VirtualInheritanceExample();
+	//VirtualInheritanceExample();
+	VirtualThingsExample();
 
 	system("pause");
 	return 0;
