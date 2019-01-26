@@ -153,12 +153,14 @@ void MultipleInheritanceExample() {
 class Animal
 {
 public:
-	Animal()
+	Animal(int a)
 	{
+		cout << "Animal.ctor\n";
 	}
 
 	~Animal()
 	{
+		cout << "Animal.dtor\n";
 	}
 
 	void Dead() {
@@ -169,30 +171,34 @@ private:
 
 };
 
-class Bird : public Animal
+class Bird : virtual public Animal
 {
 public:
-	Bird()
+	Bird(int a, int b) : Animal(a)
 	{
+		cout << "Bird.ctor\n";
 	}
 
 	~Bird()
 	{
+		cout << "Bird.dtor\n";
 	}
 
 private:
 
 };
 
-class Horse : public Animal
+class Horse : virtual public Animal
 {
 public:
-	Horse()
+	Horse(int a, int h) : Animal(a)
 	{
+		cout << "Horse.ctor\n";
 	}
 
 	~Horse()
 	{
+		cout << "Horse.dtor\n";
 	}
 
 private:
@@ -202,29 +208,32 @@ private:
 class Pegasus : public Bird, public Horse
 {
 public:
-	Pegasus()
+	Pegasus(int a, int b, int h) : Bird(a, b), Horse(a, h), Animal(a)
 	{
+		cout << "Pegasus.ctor\n";
 	}
 
 	~Pegasus()
 	{
+		cout << "Pegasus.dtor\n";
 	}
 
 private:
 
 };
 
-void DiamondOfDeathExample() {
-	Pegasus *p = new Pegasus();
+void VirtualInheritanceExample() {
+	Pegasus *p = new Pegasus(1, 2, 3);
 	//p->Dead();
-	p->Bird::Dead();
+	p->Dead();
+	delete p;
 }
 
 int main()
 {
 	//DynamicCastExample();
 	//MultipleInheritanceExample();
-	DiamondOfDeathExample();
+	VirtualInheritanceExample();
 
 	system("pause");
 	return 0;
