@@ -133,7 +133,6 @@ private:
 	int e;
 };
 
-
 void MultipleInheritanceExample() {
 	E *e = new E(3, 4, 5);
 	//e->Xxx();
@@ -151,10 +150,81 @@ void MultipleInheritanceExample() {
 	ed->ToOverride();
 }
 
+class Animal
+{
+public:
+	Animal()
+	{
+	}
+
+	~Animal()
+	{
+	}
+
+	void Dead() {
+		cout << "Animal dead." << endl;
+	};
+
+private:
+
+};
+
+class Bird : public Animal
+{
+public:
+	Bird()
+	{
+	}
+
+	~Bird()
+	{
+	}
+
+private:
+
+};
+
+class Horse : public Animal
+{
+public:
+	Horse()
+	{
+	}
+
+	~Horse()
+	{
+	}
+
+private:
+
+};
+
+class Pegasus : public Bird, public Horse
+{
+public:
+	Pegasus()
+	{
+	}
+
+	~Pegasus()
+	{
+	}
+
+private:
+
+};
+
+void DiamondOfDeathExample() {
+	Pegasus *p = new Pegasus();
+	//p->Dead();
+	p->Bird::Dead();
+}
+
 int main()
 {
 	//DynamicCastExample();
-	MultipleInheritanceExample();
+	//MultipleInheritanceExample();
+	DiamondOfDeathExample();
 
 	system("pause");
 	return 0;
