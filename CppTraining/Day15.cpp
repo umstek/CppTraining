@@ -27,8 +27,54 @@ private:
 
 int A::i = 0;
 
-int main() {
+void ClassMembersExample() {
 	cout << A::GetK() << endl;
+	A a;
+	cout << a.GetK() << endl;
+}
+
+long int DoA(int x) {
+	return x;
+}
+
+long int DoB(int x) {
+	return x * 2;
+}
+
+long int DoNothing(int x) {
+	return 0;
+}
+
+void FunctionPointersExample() {
+
+	long(*func) (int);
+
+	int r = 10;
+	int f = 0;
+	cin >> r >> f;
+
+	switch (f)
+	{
+	case 1:
+		func = DoA;
+		break;
+	case 2:
+		func = DoB;
+		break;
+	default:
+		cout << "Nothing assigned. " << endl;
+		func = DoNothing;
+		break;
+	}
+
+	cout << func(r) << endl; // Shorthand
+	cout << (*func)(r) << endl;
+}
+
+int main() {
+	//ClassMembersExample();
+	FunctionPointersExample();
+
 	system("pause");
 	return 0;
 }
