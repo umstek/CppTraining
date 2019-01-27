@@ -294,12 +294,12 @@ void VirtualThingsExample() {
 	w->X();
 }
 
-int main()
+int main14()
 {
 	//DynamicCastExample();
 	//MultipleInheritanceExample();
 	//VirtualInheritanceExample();
-	VirtualThingsExample();
+	//VirtualThingsExample();
 
 	system("pause");
 	return 0;

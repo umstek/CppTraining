@@ -4,6 +4,6 @@
 cmake_minimum_required (VERSION 3.8)
 
 # Add source to this project's executable.
-add_executable (CppTraining "CppTraining.cpp" "CppTraining.h")
+add_executable (CppTraining "Day15.cpp" "CppTraining.h")
 
 # TODO: Add tests and install targets if needed.
