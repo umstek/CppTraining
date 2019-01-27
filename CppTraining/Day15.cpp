@@ -115,10 +115,44 @@ void FunctionPointerArrayExample() {
 	}
 }
 
+class X
+{
+public:
+	X()
+	{
+	}
+
+	~X()
+	{
+	}
+
+	void M(int & x) {
+		cout << "x: " << x << endl;
+	}
+
+private:
+
+};
+
+void MethodPointerExample() {
+	void(X::*xm) (int &) = 0;
+	void(X::*xm1) (int &) = 0;
+
+	X *x = new X();
+
+	int r;
+	cin >> r;
+
+	xm = &X::M; // &(X::M)
+	(x->*xm)(r);
+	(*x.*xm)(r); // wow, bizarre
+};
+
 int main() {
 	//ClassMembersExample();
 	//FunctionPointersExample();
-	FunctionPointerArrayExample();
+	//FunctionPointerArrayExample();
+	MethodPointerExample();
 
 	system("pause");
 	return 0;
