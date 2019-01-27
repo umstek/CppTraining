@@ -71,9 +71,54 @@ void FunctionPointersExample() {
 	cout << (*func)(r) << endl;
 }
 
+long Add(int & a, int & b) {
+	return a + b;
+}
+
+long Subtract(int & a, int & b) {
+	return a - b;
+}
+
+long Multiply(int & a, int & b) {
+	return a * b;
+}
+
+long Divide(int & a, int & b) {
+	return a / b;
+}
+
+long Execute(long(*)(int &, int &)); // Declare
+
+long Execute(long(*f)(int &, int &), int i, int j) { // Define
+	return f(i, j);
+}
+
+void FunctionPointerArrayExample() {
+	long(*funcs[4])(int &, int &);
+
+	auto addf = Add;
+	auto addfa = &Add;
+
+	funcs[0] = &Add;
+	funcs[1] = Subtract; // Shorthand??
+	funcs[2] = &Multiply;
+	funcs[3] = &Divide;
+
+	int a, b;
+	cin >> a >> b;
+
+	for (size_t i = 0; i < 4; i++)
+	{
+		cout << (*funcs[i])(a, b) << endl;
+		cout << funcs[i](a, b) << endl; // Shorthand
+		cout << Execute(funcs[i], a, b) << endl; // Yet again, redirect to someone else
+	}
+}
+
 int main() {
 	//ClassMembersExample();
-	FunctionPointersExample();
+	//FunctionPointersExample();
+	FunctionPointerArrayExample();
 
 	system("pause");
 	return 0;
